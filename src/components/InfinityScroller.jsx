@@ -10,6 +10,11 @@ const InfinityScroller = ({ query, renderListItem }) => {
     const { fetchedData, isLoading } = fetchWithAbortController(query, page);
 
     useEffect(() => {
+        setItems([]);
+        setPage(1);
+    }, [query]);
+
+    useEffect(() => {
         if (fetchedData && fetchedData.length > 0) {
             setItems((prevItems) => [...prevItems, ...fetchedData]);
         }
@@ -38,10 +43,10 @@ const InfinityScroller = ({ query, renderListItem }) => {
     }, [items, lastElementObserver, renderListItem]);
 
     return (
-        <>
+        <div className='list-container'>
             {renderList()}
-            {isLoading && <ProgressSpinner style={{ width: '20px', height: '20px' }} strokeWidth="5" animationDuration=".5s" />}
-        </>
+            {isLoading && <ProgressSpinner style={{ width: '30px', height: '30px' }} strokeWidth="8" animationDuration=".5s" />}
+        </div>
     );
 };
 
